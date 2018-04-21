@@ -1,0 +1,93 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-list', {
+
+        category: 'combine',
+        defaults: {
+            name: {value: ''},
+            topic: {value: ''},
+            payload: {value: 'array'},
+            sort: {value: 'topic'},
+            order: {value: 'asc'},
+            defer: {value: 250},
+            timeout: {value: 0},
+            distinction: {value: 'topic'}
+
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'function.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'list',
+        label() {
+            return this.name || 'list';
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-list">
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-payload"><i class="icon-envelope"></i> Payload</label>
+        <select id="node-input-payload">
+            <option value="array">Array</option>
+            <option value="csv">csv</option>
+            <option value="html">html table</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-sort"><i class="icon-envelope"></i> Sort</label>
+        <select id="node-input-sort">
+            <option value="">None</option>
+            <option value="topic">Topic</option>
+            <option value="payload">Payload</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-order"><i class="icon-envelope"></i> Order</label>
+        <select id="node-input-order">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-distinction"><i class="icon-tag"></i> Distinction</label>
+        <select id="node-input-distinction">
+            <option value="topic">topic</option>
+            <!--<option value="_msgid">_msgid</option>-->
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-defer"><i class="fa fa-history"></i> Defer</label>
+        <input type="number" id="node-input-defer">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-timeout"><i class="fa fa-history"></i> Timeout</label>
+        <input type="number" id="node-input-timeout">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="combine-list">
+    <p>Compose a table of consecutive incoming topics and payloads.</p>
+
+    <h3>Defer</h3>
+    <p>Setting Defer to a value > <code>0</code> throttles the number of outgoing messages to one per configured interval in
+    milliseconds</p>
+
+    <h3>Distinction</h3>
+    <p><code>msg.payload</code> is casted to number and saved internally by the node. The saved payload is referenced
+    either by <code>msg.topic</code> or <code>msg._msgid</code>, this can be chosen with the Distinction config param.
+    Subsequent messages with the same reference override the previous received payloads.
+
+    <h3>Timeout</h3>
+    <p>Deletes saved payloads after configured milliseconds and sends a new calculation afterwards. Set to
+    <code>0</code> to disable.</p>
+</script>

@@ -15,6 +15,10 @@
 
 Calculate statistic samples like e.g. min, max, mean, median, ... from incoming payloads.
  
+#### List
+
+Compose a table of consecutive incoming topics and payloads.
+
 
 ## License
 
