@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-combine",
   "version": "1.0.0",
-  "description": "Node-RED Nodes that outputs combinations of consecutive incoming messages",
+  "description": "Node-RED Nodes that output combinations of consecutive incoming messages",
   "keywords": [
     "node-red",
     "combination",

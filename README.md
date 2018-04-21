@@ -6,7 +6,7 @@
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![License][mit-badge]][mit-url]
 
-> Node-RED Nodes that outputs combinations of consecutive incoming messages
+> Node-RED Nodes that output combinations of consecutive incoming messages
 
 
 ## Nodes
