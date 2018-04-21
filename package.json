@@ -19,7 +19,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "xo",
+    "test": "camo-purge; xo",
     "lintfix": "xo --fix"
   },
   "repository": {
@@ -38,6 +38,7 @@
     }
   },
   "devDependencies": {
+    "camo-purge": "^1.0.2",
     "eslint-plugin-html": "^4.0.3",
     "xo": "^0.20.3"
   },
