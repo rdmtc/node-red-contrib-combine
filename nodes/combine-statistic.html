@@ -1,0 +1,87 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-statistic', {
+
+        category: 'combine',
+        defaults: {
+            name: {value: ''},
+            topic: {value: ''},
+            operator: {value: 'len'},
+            defer: {value: 250},
+            timeout: {value: 0},
+            distinction: {value: 'topic'}
+
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'function.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'statistic',
+        label() {
+            return this.name || 'statistic';
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-statistic">
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-operator"><i class="icon-envelope"></i> Payload</label>
+        <select id="node-input-operator">
+            <option value="len">Count</option>
+            <option value="min">Minimum</option>
+            <option value="max">Maximum</option>
+            <option value="mean">Mean</option>
+            <option value="sum">Sum</option>
+            <option value="range">Count</option>
+            <option value="midrange">Midrange</option>
+            <option value="mean">Mean</option>
+            <option value="median">Median</option>
+            <option value="modes">Modes</option>
+            <option value="variance">Variance</option>
+            <option value="standardDeviation">Standard Deviation</option>
+            <option value="meanAbsoluteDeviation">Mean Absolute Deviation</option>
+            <option value="zScores">Z Scores</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-distinction"><i class="icon-tag"></i> Distinction</label>
+        <select id="node-input-distinction">
+            <option value="topic">topic</option>
+            <option value="_msgid">_msgid</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-defer"><i class="fa fa-history"></i> Defer</label>
+        <input type="number" id="node-input-defer">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-timeout"><i class="fa fa-history"></i> Timeout</label>
+        <input type="number" id="node-input-timeout">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="combine-statistic">
+    <p>Calculate statistic samples like e.g. min, max, mean, median, ... from incoming messages.</p>
+
+    <h3>Defer</h3>
+    <p>Setting Defer to a value > <code>0</code> throttles the number of outgoing messages to one per configured interval in
+    milliseconds</p>
+
+    <h3>Distinction</h3>
+    <p><code>msg.payload</code> is casted to number and saved internally by the node. The saved payload is referenced
+    either by <code>msg.topic</code> or <code>msg._msgid</code>, this can be chosen with the Distinction config param.
+    Subsequent messages with the same reference override the previous received payloads.
+
+    <h3>Timeout</h3>
+    <p>Deletes saved payloads after configured milliseconds and sends a new calculation afterwards. Set to
+    <code>0</code> to disable.</p>
+</script>
