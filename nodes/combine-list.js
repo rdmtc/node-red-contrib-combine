@@ -78,7 +78,6 @@ module.exports = function (RED) {
                 default:
                     payload = arr;
             }
-            console.log(this.payload, payload);
             return {
                 topic: this.topic,
                 payload,
