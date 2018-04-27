@@ -7,6 +7,7 @@ module.exports = function (RED) {
             this.timeouts = {};
 
             this.topic = config.topic || '';
+            this.columns = config.columns;
             this.payload = config.payload;
             this.sort = config.sort;
             this.order = config.order;
@@ -19,7 +20,7 @@ module.exports = function (RED) {
 
         handleMsg(incoming) {
             const key = incoming[this.distinction];
-            this.msgs[key] = incoming.payload;
+            this.msgs[key] = incoming;
             const outgoing = this.combine();
 
             if (this.defer) {
@@ -48,40 +49,70 @@ module.exports = function (RED) {
             const arr = [];
             const keys = Object.keys(this.msgs);
             keys.forEach(key => {
-                arr.push([key, this.msgs[key]]);
+                arr.push(this.msgs[key]);
             });
 
-            const topics = [];
             if (this.sort) {
                 arr.sort((a, b) => {
-                    const idx = this.sort === 'payload' ? 1 : 0;
-                    return this.order === 'desc' ? a[idx] < b[idx] : a[idx] > b[idx];
+                    return this.order === 'desc' ? a[this.sort] < b[this.sort] : a[this.sort] > b[this.sort];
                 });
             }
-            arr.forEach(key => topics.push(key[0]));
+            const topics = [];
+            arr.forEach(item => topics.push(item.topic));
 
             let payload;
             switch (this.payload) {
                 case 'csv':
                     payload = '';
                     arr.forEach(item => {
-                        payload += `${this.csvEscape(item[0])},${this.csvEscape(item[1])}\n`;
+                        const cols = [];
+                        this.columns.forEach(col => {
+                            cols.push(this.csvEscape(item[col]));
+                        });
+                        payload += cols.join(',') + '\n';
                     });
                     break;
                 case 'html':
                     payload = '<table class="combine-list">\n';
                     arr.forEach(item => {
-                        payload += `    <tr><td class="combine-list-topic">${item[0]}</td><td class="combine-list-payload">${item[1]}</td></tr>\n`;
+                        payload += '    <tr>';
+                        this.columns.forEach(col => {
+                            payload += `<td class="combine-list-topic">${item[col]}</td>`;
+                        });
+                        payload += `</tr>\n`;
                     });
                     payload += '</table>\n';
                     break;
+                case 'ul':
+                    payload = '<ul class="combine-list">\n';
+                    arr.forEach(item => {
+                        payload += `    <li>`;
+                        const elems = [];
+                        this.columns.forEach(col => {
+                            elems.push(item[col]);
+                        });
+                        payload += `${elems.join(', ')}</li>\n`;
+                    });
+                    payload += '</ul>\n';
+                    break;
                 default:
-                    payload = arr;
+                    payload = [];
+                    arr.forEach(item => {
+                        let cols = [];
+                        this.columns.forEach(col => {
+                            cols.push(item[col]);
+                        });
+                        if (cols.length === 1) {
+                            [cols] = cols;
+                        }
+                        payload.push(cols);
+                    });
             }
             return {
                 topic: this.topic,
                 payload,
-                topics
+                topics,
+                arr
             };
         }
 

@@ -6,6 +6,7 @@
             name: {value: ''},
             topic: {value: ''},
             payload: {value: 'array'},
+            columns: {value: ['topic', 'payload']},
             sort: {value: 'topic'},
             order: {value: 'asc'},
             defer: {value: 250},
@@ -21,6 +22,25 @@
         paletteLabel: 'list',
         label() {
             return this.name || 'list';
+        },
+        oneditprepare() {
+            $('#node-input-columns-container').css('min-height', '300px').css('min-width', '450px').editableList({
+                sortable: true,
+                removable: true,
+                addItem: (container, i, data) => {
+                    $('<input type="text" value="' + data.prop + '">').appendTo(container);
+                }
+            });
+            this.columns.forEach(prop => {
+                $('#node-input-columns-container').editableList('addItem', {prop});
+            });
+        },
+        oneditsave() {
+            const props = [];
+            $('#node-input-columns-container').editableList('items').each(function () {
+                props.push($(this).find('input').val());
+            });
+            this.columns = props;
         }
     });
 </script>
@@ -40,6 +60,7 @@
             <option value="array">Array</option>
             <option value="csv">csv</option>
             <option value="html">html table</option>
+            <option value="ul">html list</option>
         </select>
     </div>
     <div class="form-row">
@@ -65,6 +86,11 @@
         </select>
     </div>
     <div class="form-row">
+        <label for="node-input-columns"><i class="icon-envelope"></i> Columns</label>
+        <ol id="node-input-columns-container"></ol>
+    </div>
+
+    <div class="form-row">
         <label for="node-input-defer"><i class="fa fa-history"></i> Defer</label>
         <input type="number" id="node-input-defer">
     </div>
@@ -85,7 +111,9 @@
     <h3>Distinction</h3>
     <p><code>msg.payload</code> is casted to number and saved internally by the node. The saved payload is referenced
     either by <code>msg.topic</code> or <code>msg._msgid</code>, this can be chosen with the Distinction config param.
-    Subsequent messages with the same reference override the previous received payloads.
+    Subsequent messages with the same reference override the previous received payloads. When settings this to <code>
+    msg._msgid</code> you should also specify a message timeout, this makes sense e.g. to create a message per time
+    counter or for creating a moving average.
 
     <h3>Timeout</h3>
     <p>Deletes saved payloads after configured milliseconds and sends a new calculation afterwards. Set to

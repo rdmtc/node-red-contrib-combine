@@ -17,7 +17,13 @@ Calculate statistic samples like e.g. min, max, mean, median, ... from incoming 
  
 #### List
 
-Compose a table of consecutive incoming topics and payloads.
+Compose a table of consecutive incoming topics and payloads. Output as array, csv, html table or html list. Columns and 
+sort order can be configured.
+
+## Timeout
+
+A timeout can be configured that removes messages from the internal cache. The statistics or the tables get re-composed
+when a message times out.
 
 
 ## License
