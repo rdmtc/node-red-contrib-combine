@@ -11,12 +11,10 @@ module.exports = function (RED) {
                     } else {
                         this.status({fill: 'grey', shape: 'ring', text: 'false'});
                     }
+                } else if (this.state) {
+                    this.send([msg, null]);
                 } else {
-                    if (this.state) {
-                        this.send([msg, nul]);
-                    } else {
-                        this.send([null, msg]);
-                    }
+                    this.send([null, msg]);
                 }
             });
         }
