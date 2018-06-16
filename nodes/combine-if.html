@@ -7,7 +7,7 @@
             timeout: {value: 0}
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
         icon: 'function.png',
         align: 'left',
         color: '#D8BFD8',
@@ -31,7 +31,7 @@
 
 <script type="text/x-red" data-help-name="combine-if">
     <p>
-        If-Condition: Only forwards messages when previously received a truthy payload on "Condition Topic". Stops
-        forwarding of messages after receiving a falsy payload on "Condition Topic".
+        If-Condition: Forwards messages to the first output when previously received a truthy payload on
+        "Condition Topic", otherwise messages will be routed to the second output.
     </p>
 </script>
