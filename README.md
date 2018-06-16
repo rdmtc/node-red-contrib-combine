@@ -8,6 +8,10 @@
 
 > Node-RED Nodes that output combinations of consecutive incoming messages
 
+These nodes aim to solve typical use cases where multi-input nodes (something that doesn't exist in Node-RED's conecpt)
+would be convenient. Incoming messages are stored internally by the nodes so combinations of multiple messages can be
+provided. Distinction of these messages is based on their `topic` property.
+
 
 ## Nodes
 
