@@ -1,0 +1,78 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-logic', {
+
+        category: 'combine',
+        defaults: {
+            name: {value: ''},
+            topic: {value: ''},
+            operator: {value: 'and'},
+            defer: {value: 250},
+            timeout: {value: 0},
+            distinction: {value: 'topic'}
+
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'function.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'logic',
+        label() {
+            return this.name || ('logic ' + this.operator);
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-logic">
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-operator"><i class="icon-envelope"></i> Operator</label>
+        <select id="node-input-operator">
+            <option value="and">AND</option>
+            <option value="or">OR</option>
+            <option value="xor">XOR</option>
+            <option value="nor">NOR</option>
+            <option value="xnor">XNOR</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-distinction"><i class="icon-tag"></i> Distinction</label>
+        <select id="node-input-distinction">
+            <option value="topic">topic</option>
+            <option value="_msgid">_msgid</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-defer"><i class="fa fa-history"></i> Defer</label>
+        <input type="number" id="node-input-defer">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-timeout"><i class="fa fa-history"></i> Timeout</label>
+        <input type="number" id="node-input-timeout">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="combine-logic">
+    <p>Logic combination of incoming messages.</p>
+
+    <h3>Defer</h3>
+    <p>Setting Defer to a value > <code>0</code> throttles the number of outgoing messages to one per configured interval in
+    milliseconds</p>
+
+    <h3>Distinction</h3>
+    <p><code>msg.payload</code> is saved internally by the node. The saved payload is referenced
+    either by <code>msg.topic</code> or <code>msg._msgid</code>, this can be chosen with the Distinction config param.
+    Subsequent messages with the same reference override the previous received payloads.
+
+    <h3>Timeout</h3>
+    <p>Deletes saved payloads after configured milliseconds and sends a new combination afterwards. Set to
+    <code>0</code> to disable.</p>
+</script>
