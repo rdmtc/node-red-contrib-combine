@@ -25,7 +25,7 @@ Logic combination of incoming messages (And, Or, Xor, Nand, Nor, Xnor).
 Calculate statistic samples like e.g. min, max, mean, median, ... from incoming payloads. Message distinction can be
 configured to `msg.topic` or `msg._id`. A timeout can be configured that removes messages from the internal cache. 
 The statistics are re-composed when a message times out.
- `
+ 
 #### List
 
 Compose a table of consecutive incoming topics and payloads. Output as array, csv, html table or html list. Columns and 
