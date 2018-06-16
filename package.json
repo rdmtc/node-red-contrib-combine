@@ -41,7 +41,8 @@
     "nodes": {
       "statistic": "nodes/combine-statistic.js",
       "list": "nodes/combine-list.js",
-      "timeout": "nodes/combine-timeout.js"
+      "timeout": "nodes/combine-timeout.js",
+      "if": "nodes/combine-if.js"
     }
   },
   "devDependencies": {

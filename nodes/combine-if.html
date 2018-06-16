@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-if', {
+        category: 'combine',
+        defaults: {
+            topic: {value: 'condition'},
+            name: {value: ''},
+            timeout: {value: 0}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'function.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'if',
+        label() {
+            return this.name || ('if ' + this.topic);
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-if">
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Condition Topic</label>
+        <input type="text" id="node-input-topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="combine-if">
+    <p>
+        If-Condition: Only forwards messages when previously received a truthy payload on "Condition Topic". Stops
+        forwarding of messages after receiving a falsy payload on "Condition Topic".
+    </p>
+</script>
