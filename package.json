@@ -40,7 +40,8 @@
   "node-red": {
     "nodes": {
       "statistic": "nodes/combine-statistic.js",
-      "list": "nodes/combine-list.js"
+      "list": "nodes/combine-list.js",
+      "timeout": "nodes/combine-timeout.js"
     }
   },
   "devDependencies": {
