@@ -21,6 +21,7 @@ module.exports = function (RED) {
                 }
             });
         }
+
         setState(state, msg) {
             this.state = Boolean(state);
             msg.payload = Boolean(this.state ^ this.invert);

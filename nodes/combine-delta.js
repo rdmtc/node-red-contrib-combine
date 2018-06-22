@@ -24,6 +24,7 @@ module.exports = function (RED) {
                 }
             });
         }
+
         calc() {
             if (typeof this.valA !== 'undefined' && typeof this.valB !== 'undefined') {
                 const delta = this.valA - this.valB;
