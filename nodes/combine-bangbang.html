@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-bangbang', {
+        category: 'combine',
+        defaults: {
+            upper: {value: '', validate: RED.validators.number()},
+            lower: {value: '', validate: RED.validators.number()},
+            invert: {value: false},
+            name: {value: ''}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'bangbang.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'bangbang',
+        label() {
+            return this.name || 'bangbang';
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-bangbang">
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Upper</label>
+        <input type="text" id="node-input-upper">
+    </div>
+     <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Lower</label>
+        <input type="text" id="node-input-lower">
+    </div>
+    <div class="form-row">
+        <label for="node-input-invert"><i class="icon-bookmark"></i> Invert</label>
+        <input type="checkbox" id="node-input-invert">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="combine-bangbang">
+    <p>
+        <strong>Bang-bang (2 step / on-off) Controller</strong><br>
+        Emits <code>true</code> when the the payload value exceeds the upper
+        bound, emits <code>false</code> when the payload goes below the lower bound. You could e.g. use this as a simple
+        thermostat for a climate control, feed in the actual temperature and use the output to control a cooling device.
+        For a heating device you would have to use the "invert" option, so you receive <code>false</code> when exceeding
+        the upper bound and <code>true</code> when going below the lower bound.
+    </p>
+</script>

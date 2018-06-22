@@ -28,6 +28,15 @@ Logic combination of incoming messages (And, Or, Xor, Nand, Nor, Xnor).
 
 Simple subtraction of the values received on two configured topics.
 
+#### Bangbang
+
+Bang-bang (2 step / on-off) Controller. Emits `true` when the the payload value exceeds the upper bound, emits
+`false` when the payload goes below the lower bound. You could e.g. use this as a simple thermostat for a
+climate control, feed in the actual temperature and use the output to control a cooling device. For a heating
+device you would have to use the "invert" option, so you receive `false` when exceeding the upper bound and
+`true` when going below the lower bound.
+
+
 #### Statistic
 
 Calculate statistic samples like e.g. min, max, mean, median, ... from incoming payloads. Message distinction can be
