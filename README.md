@@ -24,6 +24,10 @@ will be routed to the second output.
 
 Logic combination of incoming messages (And, Or, Xor, Nand, Nor, Xnor).
 
+#### Delta
+
+Simple subtraction of the values received on two configured topics.
+
 #### Statistic
 
 Calculate statistic samples like e.g. min, max, mean, median, ... from incoming payloads. Message distinction can be

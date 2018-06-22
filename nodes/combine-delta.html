@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-delta', {
+        category: 'combine',
+        defaults: {
+            topic: {value: ''},
+            topicA: {value: '', required: true},
+            topicB: {value: '', required: true},
+            name: {value: ''}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'function.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'delta',
+        label() {
+            return this.name || 'delta';
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-delta">
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic A</label>
+        <input type="text" id="node-input-topicA">
+    </div>
+     <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic B</label>
+        <input type="text" id="node-input-topicB">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="combine-delta">
+    <p>
+        Simple subtraction. Emits the value of Topic A minus the value of Topic B.
+    </p>
+</script>
