@@ -63,6 +63,9 @@
     "extensions": [
       "js",
       "html"
-    ]
+    ],
+    "rules": {
+      "capitalized-comments": "off"
+    }
   }
 }
