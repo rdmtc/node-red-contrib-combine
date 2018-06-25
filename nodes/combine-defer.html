@@ -1,0 +1,80 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-defer', {
+        category: 'combine',
+        defaults: {
+            topic: {value: ''},
+            name: {value: ''},
+            defer: {value: 0}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'timer.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'defer',
+        label() {
+            return this.name || ('defer ' + this.defer + ' s');
+        },
+        oneditprepare() {
+            /*
+            $('#node-input-tPayload').typedInput({
+                default: 'bool',
+                types: ['bool', 'num', 'string'],
+                typeField: '#node-input-tPayloadType'
+            });
+            */
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-defer">
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic">
+
+    </div>
+    <!--
+    <div class="form-row">
+        <label for="node-input-condition"><i class="icon-tasks"></i> Payload</label>
+            <select id="node-input-condition">
+                <option value="eq">==</option>
+                <option value="neq">!=</option>
+                <option value="lt">&lt;</option>
+                <option value="gt">&gt;</option>
+                <option value="lte">&lt;=</option>
+                <option value="gte">&gt;=</option>
+                <option value="btwn">is between</option>
+            </select>
+            <input id="node-input-tPayload">
+            <input type="hidden" id="node-input-tPayloadType">
+            <input type="number" id="node-input-payload" style="display:none">
+            <input type="number" id="node-input-lower" style="display:none">
+            <input type="number" id="node-input-upper" style="display:none">
+    </div>
+    -->
+    <div class="form-row">
+        <label for="node-input-defer"><i class="fa fa-history"></i> Timeout</label>
+        <input type="number" id="node-input-defer">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <style>
+        #node-input-condition {
+            width: 120px;
+        }
+
+
+    </style>
+
+</script>
+
+<script type="text/x-red" data-help-name="combine-defer">
+    <p>
+        Defer a message with matching payload condition for given time.
+        If another message arrives that does not match the condition the timer is cancelled.
+        Output payload is `true` or `false`.
+        Keeps track on each topics state, only one message per topic will be sent until resetted by a falsy payload.
+    </p>
+</script>

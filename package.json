@@ -45,7 +45,7 @@
       "logic": "nodes/combine-logic.js",
       "statistic": "nodes/combine-statistic.js",
       "list": "nodes/combine-list.js",
-      "timeout": "nodes/combine-timeout.js"
+      "defer": "nodes/combine-defer.js"
     }
   },
   "devDependencies": {
