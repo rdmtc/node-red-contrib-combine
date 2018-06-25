@@ -49,7 +49,7 @@ Compose a table of consecutive incoming topics and payloads. Output as array, cs
 sort order can be configured. Message distinction can be configured to `msg.topic` or `msg._id`. A timeout can be 
 configured that removes messages from the internal cache. The tables are re-composed when a message times out.
 
-#### Timeout
+#### Defer
 
 Defer a message with truthy payload for given time.
 If another message arrives with falsy payload the timer is cancelled.

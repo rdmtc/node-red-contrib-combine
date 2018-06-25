@@ -6,35 +6,34 @@ module.exports = function (RED) {
             this.state = {};
             this.timer = {};
             this.on('input', msg => {
+                /*
+                let match;
+                switch (config.condition) {
+                    case 'eq':
+                        match = msg.payload === config.tPayload;
+                        break;
+                    case 'neq':
+                        match = msg.payload !== config.tPayload;
+                        break;
+                    case 'gt':
+                        match = msg.payload > config.payload;
+                        break;
+                    case 'lt':
+                        match = msg.payload < config.payload;
+                        break;
+                    case 'gte':
+                        match = msg.payload <= config.payload;
+                        break;
+                    case 'lte':
+                        match = msg.payload >= config.payload;
+                        break;
+                    case 'btwn':
+                        match = (msg.payload >= config.lower) && (msg.payload <= config.upper);
+                        break;
+                    default:
+                }
+                */
                 if (msg.payload) {
-                    /*
-                    let match;
-                    switch (config.condition) {
-                        case 'eq':
-                            match = msg.payload === config.tPayload;
-                            break;
-                        case 'neq':
-                            match = msg.payload !== config.tPayload;
-                            break;
-                        case 'gt':
-                            match = msg.payload > config.payload;
-                            break;
-                        case 'lt':
-                            match = msg.payload < config.payload;
-                            break;
-                        case 'gte':
-                            match = msg.payload <= config.payload;
-                            break;
-                        case 'lte':
-                            match = msg.payload >= config.payload;
-                            break;
-                        case 'btwn':
-                            match = (msg.payload >= config.lower) && (msg.payload <= config.upper);
-                            break;
-                        default:
-                    }
-                    */
-
                     if (!this.timer[msg.topic] && !this.state[msg.topic]) {
                         this.state[msg.topic] = true;
                         this.timer[msg.topic] = setTimeout(() => {

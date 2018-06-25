@@ -72,9 +72,8 @@
 
 <script type="text/x-red" data-help-name="combine-defer">
     <p>
-        Defer a message with matching payload condition for given time.
-        If another message arrives that does not match the condition the timer is cancelled.
-        Output payload is `true` or `false`.
+        Defer a message with truthy payload for given time.
+        If another message arrives that has falsy payload the timer is cancelled.
         Keeps track on each topics state, only one message per topic will be sent until resetted by a falsy payload.
     </p>
 </script>
