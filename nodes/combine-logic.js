@@ -69,7 +69,7 @@ module.exports = function (RED) {
                 topics: this.distinction === 'topic' ? topics : undefined,
                 messages: this.distinction === '_msgid' ? topics : undefined,
                 and: payloads.reduce((pv, cv) => pv && cv),
-                or: payloads.reduce(function(pv,cv) { return pv || cv; }),
+                or: payloads.reduce((pv, cv) => pv || cv),
                 xor: payloads.reduce((pv, cv) => pv ^ cv)
             };
 
