@@ -75,7 +75,7 @@ module.exports = function (RED) {
 
             combine.nand = !combine.and;
             combine.nor = !combine.or;
-            combine.xnor = !combine.xor;
+            combine.xnor = !combine.xnor;
 
             return Object.assign({
                 topic: this.topic,
