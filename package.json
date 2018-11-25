@@ -29,14 +29,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hobbyquaker/node-red-contrib-combine.git"
+    "url": "git+https://github.com/HM-RedMatic/node-red-contrib-combine.git"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hobbyquaker/node-red-contrib-combine/issues"
+    "url": "https://github.com/HM-RedMatic/node-red-contrib-combine/issues"
   },
-  "homepage": "https://github.com/hobbyquaker/node-red-contrib-combine#readme",
+  "homepage": "https://github.com/HM-RedMatic/node-red-contrib-combine#readme",
   "node-red": {
     "nodes": {
       "if": "nodes/combine-if.js",
