@@ -95,14 +95,15 @@ module.exports = function (RED) {
             const result = combine[this.operator];
 
             // guard against unwanted results
-            if (!isNaN(parseInt(result))) {
-                return Object.assign({
-                    topic: this.topic,
-                    payload: result
-                }, combine);
-            } else {
+            if (isNaN(parseInt(result, 10))) {
                 return null;
             }
+
+            // return proper results
+            return Object.assign({
+                topic: this.topic,
+                payload: result
+            }, combine);
         }
 
         sum(array) {
