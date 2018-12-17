@@ -1,3 +1,4 @@
+
 # node-red-contrib-combine
 
 [![NPM version](https://badge.fury.io/js/node-red-contrib-combine.svg)](http://badge.fury.io/js/node-red-contrib-combine)
@@ -8,9 +9,13 @@
 
 > Node-RED Nodes that output combinations of consecutive incoming messages
 
-These nodes aim to solve typical use cases where multi-input nodes (something that doesn't exist in Node-RED's conecpt)
+These nodes aim to solve typical use cases where multi-input nodes (something that doesn't exist in Node-RED's concept)
 would be convenient. Incoming messages are stored internally by the nodes so combinations of multiple messages can be
 provided. Distinction of these messages is based on their `topic` property.
+
+## Prerequisites
+
+node-red-contrib-combine requires Node.js version 7.0.0 or higher.
 
 
 ## Nodes
@@ -53,7 +58,7 @@ configured that removes messages from the internal cache. The tables are re-comp
 
 Defer a message with truthy payload for given time.
 If another message arrives with falsy payload the timer is cancelled.
-Keeps track on each topics state, only one message per topic will be sent until resetted by a falsy payload.
+Keeps track on each topics state, only one message per topic will be sent until reset by a falsy payload.
 
 
 ## License
