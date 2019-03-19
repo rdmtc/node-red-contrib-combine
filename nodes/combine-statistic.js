@@ -68,8 +68,8 @@ module.exports = function (RED) {
                 payloads[i] = Number(payloads[i]) || 0;
             }
 
-            const min = Math.min.apply(null, payloads);
-            const max = Math.max.apply(null, payloads);
+            const min = (len > 0 ? Math.min.apply(null, payloads) : null); // prevent "-Infinity" result
+            const max = (len > 0 ? Math.max.apply(null, payloads) : null); // prevent "Infinity" result
             const range = max - min;
             const midrange = min + ((max - min) / 2);
             const sum = this.sum(payloads);
@@ -99,9 +99,17 @@ module.exports = function (RED) {
                 zScores
             };
 
+            const result = combine[this.operator];
+
+            // guard against unwanted results
+            if (isNaN(parseInt(result, 10))) {
+                return null;
+            }
+
+            // return proper results
             return Object.assign({
                 topic: this.topic,
-                payload: combine[this.operator]
+                payload: result
             }, combine);
         }
 
