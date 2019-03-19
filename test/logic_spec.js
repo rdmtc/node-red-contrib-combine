@@ -441,7 +441,6 @@ describe('combine logic', () => {
             });
             nXor.receive({topic: '1', payload: false});
         });
-
     });
     describe('xnor', () => {
         it('should output true deferred on 1:true, 2:true', done => {
@@ -493,7 +492,6 @@ describe('combine logic', () => {
             });
             nXnor.receive({topic: '1', payload: false});
         });
-
     });
     describe('and distinct _msgid timeout 1000', () => {
         it('should output true on true', done => {
@@ -531,8 +529,5 @@ describe('combine logic', () => {
                 done();
             });
         });
-
-
     });
-
 });

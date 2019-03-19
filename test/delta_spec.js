@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case */
+/* eslint-disable unicorn/filename-case, no-unused-vars */
 /* globals describe, before, after, it */
 
 const should = require('should');
