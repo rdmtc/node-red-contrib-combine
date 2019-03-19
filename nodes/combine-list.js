@@ -9,6 +9,7 @@ module.exports = function (RED) {
             this.topic = config.topic || '';
             this.columns = config.columns;
             this.payload = config.payload;
+            this.falsy = config.falsy !== 'exclude';
             this.sort = config.sort;
             this.order = config.order;
             this.distinction = config.distinction || 'topic';
@@ -20,6 +21,13 @@ module.exports = function (RED) {
 
         handleMsg(incoming) {
             const key = incoming[this.distinction];
+
+            if (!this.falsy && !incoming.payload) {
+                delete this.msgs[key];
+            } else {
+                this.msgs[key] = incoming.payload;
+            }
+
             this.msgs[key] = incoming;
             const outgoing = this.combine();
 

@@ -6,6 +6,7 @@
             name: {value: ''},
             topic: {value: ''},
             payload: {value: 'array'},
+            falsy: {value: 'include'},
             columns: {value: ['topic', 'payload']},
             sort: {value: 'topic'},
             order: {value: 'asc'},
@@ -61,6 +62,13 @@
             <option value="csv">csv</option>
             <option value="html">html table</option>
             <option value="ul">html list</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-falsy"><i class="icon-tag"></i> Values</label>
+        <select id="node-input-falsy">
+            <option value="include">include falsy</option>
+            <option value="exclude">exclude falsy</option>
         </select>
     </div>
     <div class="form-row">

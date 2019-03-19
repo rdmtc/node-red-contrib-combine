@@ -6,6 +6,7 @@
             name: {value: ''},
             topic: {value: ''},
             operator: {value: 'len'},
+            falsy: {value: 'include'},
             defer: {value: 250},
             timeout: {value: 0},
             distinction: {value: 'topic'}
@@ -40,7 +41,7 @@
             <option value="max">Maximum</option>
             <option value="mean">Mean</option>
             <option value="sum">Sum</option>
-            <option value="range">Count</option>
+            <option value="range">Range</option>
             <option value="midrange">Midrange</option>
             <option value="mean">Mean</option>
             <option value="median">Median</option>
@@ -56,6 +57,13 @@
         <select id="node-input-distinction">
             <option value="topic">topic</option>
             <option value="_msgid">_msgid</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-falsy"><i class="icon-tag"></i> Values</label>
+        <select id="node-input-falsy">
+            <option value="include">include falsy</option>
+            <option value="exclude">exclude falsy</option>
         </select>
     </div>
     <div class="form-row">

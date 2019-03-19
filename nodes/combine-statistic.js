@@ -8,6 +8,7 @@ module.exports = function (RED) {
 
             this.topic = config.topic || '';
             this.operator = config.operator;
+            this.falsy = config.falsy !== 'exclude';
             this.distinction = config.distinction || 'topic';
             this.defer = parseInt(config.defer, 10) || 0;
             this.timeout = parseInt(config.timeout, 10) || 0;
@@ -17,7 +18,13 @@ module.exports = function (RED) {
 
         handleMsg(incoming) {
             const key = incoming[this.distinction];
-            this.msgs[key] = incoming.payload;
+
+            if (!this.falsy && !incoming.payload) {
+                delete this.msgs[key];
+            } else {
+                this.msgs[key] = incoming.payload;
+            }
+
             const outgoing = this.combine();
 
             if (this.defer) {
