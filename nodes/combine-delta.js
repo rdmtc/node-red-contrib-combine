@@ -12,6 +12,7 @@ module.exports = function (RED) {
                     } else {
                         this.valA = val;
                     }
+
                     this.calc();
                 } else if (msg.topic === config.topicB) {
                     const val = parseFloat(msg.payload);
@@ -20,6 +21,7 @@ module.exports = function (RED) {
                     } else {
                         this.valB = val;
                     }
+
                     this.calc();
                 }
             });

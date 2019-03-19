@@ -28,6 +28,7 @@ module.exports = function (RED) {
                 } else {
                     this.status({fill: 'grey', shape: 'ring', text: 'false (' + Object.keys(this.msgs).length + ')'});
                 }
+
                 this.send(outgoing);
             }
 
@@ -56,6 +57,7 @@ module.exports = function (RED) {
                     } else {
                         this.status({fill: 'grey', shape: 'ring', text: 'false (' + Object.keys(this.msgs).length + ')'});
                     }
+
                     this.sendTimeout = null;
                 }, this.defer);
             }
@@ -65,12 +67,13 @@ module.exports = function (RED) {
             const topics = Object.keys(this.msgs);
             const payloads = Object.values(this.msgs);
 
+
             const combine = {
                 topics: this.distinction === 'topic' ? topics : undefined,
                 messages: this.distinction === '_msgid' ? topics : undefined,
-                and: payloads.reduce((pv, cv) => pv && cv),
-                or: payloads.reduce((pv, cv) => pv || cv),
-                xor: payloads.reduce((pv, cv) => pv ^ cv)
+                and: payloads.length > 0 ? payloads.reduce((pv, cv) => pv && cv) : false,
+                or: payloads.length > 0 ? payloads.reduce((pv, cv) => pv || cv) : false,
+                xor: payloads.length > 0 ? Boolean(payloads.reduce((pv, cv) => pv ^ cv)) : false
             };
 
             combine.nand = !combine.and;

@@ -50,6 +50,7 @@ module.exports = function (RED) {
             if (str.match(/ /)) {
                 str = '"' + str + '"';
             }
+
             return str;
         }
 
@@ -65,6 +66,7 @@ module.exports = function (RED) {
                     return this.order === 'desc' ? a[this.sort] < b[this.sort] : a[this.sort] > b[this.sort];
                 });
             }
+
             const topics = [];
             arr.forEach(item => topics.push(item.topic));
 
@@ -87,14 +89,14 @@ module.exports = function (RED) {
                         this.columns.forEach(col => {
                             payload += `<td class="combine-list-topic">${item[col]}</td>`;
                         });
-                        payload += `</tr>\n`;
+                        payload += '</tr>\n';
                     });
                     payload += '</table>\n';
                     break;
                 case 'ul':
                     payload = '<ul class="combine-list">\n';
                     arr.forEach(item => {
-                        payload += `    <li>`;
+                        payload += '    <li>';
                         const elems = [];
                         this.columns.forEach(col => {
                             elems.push(item[col]);
@@ -113,9 +115,11 @@ module.exports = function (RED) {
                         if (cols.length === 1) {
                             [cols] = cols;
                         }
+
                         payload.push(cols);
                     });
             }
+
             return {
                 topic: this.topic,
                 payload,

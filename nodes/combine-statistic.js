@@ -76,7 +76,7 @@ module.exports = function (RED) {
             const mean = sum / len;
             const median = this.median(payloads);
             const modes = this.modes(payloads);
-            const variance = this.mean(payloads.map(num => Math.pow(num - mean, 2)));
+            const variance = this.mean(payloads.map(num => num - (mean ** 2)));
             const standardDeviation = Math.sqrt(variance);
             const meanAbsoluteDeviation = this.mean(payloads.map(num => Math.abs(num - mean)));
             const zScores = payloads.map(num => (num - mean) / standardDeviation);
@@ -119,6 +119,7 @@ module.exports = function (RED) {
             if (mid % 1) {
                 return array[mid - 0.5];
             }
+
             return (array[mid - 1] + array[mid]) / 2;
         }
 
@@ -126,6 +127,7 @@ module.exports = function (RED) {
             if (array.length === 0) {
                 return array;
             }
+
             const modeMap = {};
             let maxCount = 1;
             let modes = [array[0]];
@@ -136,6 +138,7 @@ module.exports = function (RED) {
                 } else {
                     modeMap[val] = 1;
                 }
+
                 if (modeMap[val] > maxCount) {
                     modes = [val];
                     maxCount = modeMap[val];
