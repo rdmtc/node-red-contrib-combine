@@ -67,7 +67,6 @@ module.exports = function (RED) {
             const topics = Object.keys(this.msgs);
             const payloads = Object.values(this.msgs);
 
-
             const combine = {
                 topics: this.distinction === 'topic' ? topics : undefined,
                 messages: this.distinction === '_msgid' ? topics : undefined,
