@@ -1,0 +1,5 @@
+.idea
+.editorconfig
+test
+.nyc_output
+.travis.yml

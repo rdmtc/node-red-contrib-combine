@@ -1,8 +1,9 @@
 # node-red-contrib-combine
 
 [![NPM version](https://badge.fury.io/js/node-red-contrib-combine.svg)](http://badge.fury.io/js/node-red-contrib-combine)
-[![dependencies Status](https://david-dm.org/HM-RedMatic/node-red-contrib-combine/status.svg)](https://david-dm.org/HM-RedMatic/node-red-contrib-combine)
-[![Build Status](https://travis-ci.org/HM-RedMatic/node-red-contrib-combine.svg?branch=master)](https://travis-ci.org/HM-RedMatic/node-red-contrib-combine)
+[![dependencies Status](https://david-dm.org/rdmtc/node-red-contrib-combine/status.svg)](https://david-dm.org/rdmtc/node-red-contrib-combine)
+[![Build Status](https://travis-ci.org/rdmtc/node-red-contrib-combine.svg?branch=master)](https://travis-ci.org/rdmtc/node-red-contrib-combine)
+[![Coverage Status](https://coveralls.io/repos/github/rdmtc/node-red-contrib-combine/badge.svg?branch=master)](https://coveralls.io/github/rdmtc/node-red-contrib-combine?branch=master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![License][mit-badge]][mit-url]
 
