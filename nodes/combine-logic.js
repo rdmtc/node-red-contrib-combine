@@ -80,10 +80,8 @@ module.exports = function (RED) {
             combine.nor = !combine.or;
             combine.xnor = !combine.xor;
 
-            return Object.assign({
-                topic: this.topic,
-                payload: combine[this.operator]
-            }, combine);
+            return {topic: this.topic,
+                payload: combine[this.operator], ...combine};
         }
     }
 

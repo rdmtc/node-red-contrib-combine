@@ -107,10 +107,8 @@ module.exports = function (RED) {
             }
 
             // return proper results
-            return Object.assign({
-                topic: this.topic,
-                payload: result
-            }, combine);
+            return {topic: this.topic,
+                payload: result, ...combine};
         }
 
         sum(array) {
