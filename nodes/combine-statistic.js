@@ -44,7 +44,6 @@ module.exports = function (RED) {
         remove(key) {
             delete this.msgs[key];
             const msg = this.combine();
-
             this.send(msg);
         }
 
