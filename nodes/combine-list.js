@@ -25,16 +25,13 @@ module.exports = function (RED) {
             if (!this.falsy && !incoming.payload) {
                 delete this.msgs[key];
             } else {
-                this.msgs[key] = incoming.payload;
+                this.msgs[key] = incoming;
             }
 
-            this.msgs[key] = incoming;
-            const outgoing = this.combine();
-
             if (this.defer) {
-                this.sendDeferred(outgoing);
+                this.sendDeferred();
             } else {
-                this.send(outgoing);
+                this.send(this.combine());
             }
 
             if (this.timeout) {
@@ -48,7 +45,6 @@ module.exports = function (RED) {
         remove(key) {
             delete this.msgs[key];
             const msg = this.combine();
-
             this.send(msg);
         }
 
@@ -135,11 +131,10 @@ module.exports = function (RED) {
             };
         }
 
-        sendDeferred(msg) {
-            this.msgDeferred = msg;
+        sendDeferred() {
             if (!this.sendTimeout) {
                 this.sendTimeout = setTimeout(() => {
-                    this.send(this.msgDeferred);
+                    this.send(this.combine());
                     this.sendTimeout = null;
                 }, this.defer);
             }
