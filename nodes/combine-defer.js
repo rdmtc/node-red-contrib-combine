@@ -34,6 +34,7 @@ module.exports = function (RED) {
                 }
                 */
                 if (msg.payload) {
+                    /* istanbul ignore else */
                     if (!this.timer[msg.topic] && !this.state[msg.topic]) {
                         this.state[msg.topic] = true;
                         this.timer[msg.topic] = setTimeout(() => {

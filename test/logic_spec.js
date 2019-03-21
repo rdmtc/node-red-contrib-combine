@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/filename-case, no-unused-vars */
-/* globals describe, before, after, it */
+/* globals describe, before, after, it, afterEach */
 
 const should = require('should');
 const helper = require('node-red-node-test-helper');
@@ -40,6 +40,21 @@ describe('combine logic', () => {
             ]
         },
         {
+            id: 'n-and-d0',
+            type: 'combine-logic',
+            name: 'logic and distinct msgid',
+            topic: '',
+            operator: 'and',
+            defer: 0,
+            timeout: 1000,
+            distinction: '_msgid',
+            wires: [
+                [
+                    'nh'
+                ]
+            ]
+        },
+        {
             id: 'n-nand',
             type: 'combine-logic',
             name: 'logic nand',
@@ -62,7 +77,6 @@ describe('combine logic', () => {
             operator: 'or',
             defer: 250,
             timeout: 0,
-            distinction: 'topic',
             wires: [
                 [
                     'nh'
@@ -120,9 +134,10 @@ describe('combine logic', () => {
         }
     ];
 
-    let nh;
+    let nhelper;
     let nAnd;
     let nAndD;
+    let nAndD0;
     let nNand;
     let nOr;
     let nNor;
@@ -139,7 +154,8 @@ describe('combine logic', () => {
                 nXor = helper.getNode('n-xor');
                 nXnor = helper.getNode('n-xnor');
                 nAndD = helper.getNode('n-and-d');
-                nh = helper.getNode('nh');
+                nAndD0 = helper.getNode('n-and-d0');
+                nhelper = helper.getNode('nh');
                 done();
             });
         });
@@ -152,7 +168,7 @@ describe('combine logic', () => {
 
     describe('and', () => {
         it('should output true on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.true();
                 done();
@@ -160,7 +176,7 @@ describe('combine logic', () => {
             nAnd.receive({topic: '1', payload: true});
         });
         it('should output false on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.false();
                 done();
@@ -168,7 +184,7 @@ describe('combine logic', () => {
             nAnd.receive({topic: '1', payload: false});
         });
         it('should output false on 2:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -176,7 +192,7 @@ describe('combine logic', () => {
             nAnd.receive({topic: '2', payload: true});
         });
         it('should output true on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -184,7 +200,7 @@ describe('combine logic', () => {
             nAnd.receive({topic: '1', payload: true});
         });
         it('should output true on 3:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.true();
                 done();
@@ -192,7 +208,7 @@ describe('combine logic', () => {
             nAnd.receive({topic: '3', payload: true});
         });
         it('should output false on 3:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.false();
                 done();
@@ -200,7 +216,7 @@ describe('combine logic', () => {
             nAnd.receive({topic: '3', payload: false});
         });
         it('should output false deferred on 3:true, 3:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.false();
                 done();
@@ -211,7 +227,7 @@ describe('combine logic', () => {
     });
     describe('nand', () => {
         it('should output false on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.false();
                 done();
@@ -219,7 +235,7 @@ describe('combine logic', () => {
             nNand.receive({topic: '1', payload: true});
         });
         it('should output true on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.true();
                 done();
@@ -227,7 +243,7 @@ describe('combine logic', () => {
             nNand.receive({topic: '1', payload: false});
         });
         it('should output true on 2:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -235,7 +251,7 @@ describe('combine logic', () => {
             nNand.receive({topic: '2', payload: true});
         });
         it('should output false on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -243,7 +259,7 @@ describe('combine logic', () => {
             nNand.receive({topic: '1', payload: true});
         });
         it('should output false on 3:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.false();
                 done();
@@ -251,7 +267,7 @@ describe('combine logic', () => {
             nNand.receive({topic: '3', payload: true});
         });
         it('should output true on 3:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.true();
                 done();
@@ -261,7 +277,7 @@ describe('combine logic', () => {
     });
     describe('or', () => {
         it('should output true on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.true();
                 done();
@@ -269,7 +285,7 @@ describe('combine logic', () => {
             nOr.receive({topic: '1', payload: true});
         });
         it('should output false on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.false();
                 done();
@@ -277,7 +293,7 @@ describe('combine logic', () => {
             nOr.receive({topic: '1', payload: false});
         });
         it('should output true on 2:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -285,7 +301,7 @@ describe('combine logic', () => {
             nOr.receive({topic: '2', payload: true});
         });
         it('should output true on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -293,7 +309,7 @@ describe('combine logic', () => {
             nOr.receive({topic: '1', payload: true});
         });
         it('should output true on 2:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -301,7 +317,7 @@ describe('combine logic', () => {
             nOr.receive({topic: '2', payload: false});
         });
         it('should output false on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -309,7 +325,7 @@ describe('combine logic', () => {
             nOr.receive({topic: '1', payload: false});
         });
         it('should output false on 3:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.false();
                 done();
@@ -317,7 +333,7 @@ describe('combine logic', () => {
             nOr.receive({topic: '3', payload: false});
         });
         it('should output true on 3:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.true();
                 done();
@@ -327,7 +343,7 @@ describe('combine logic', () => {
     });
     describe('nor', () => {
         it('should output false on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.false();
                 done();
@@ -335,7 +351,7 @@ describe('combine logic', () => {
             nNor.receive({topic: '1', payload: true});
         });
         it('should output true on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1']);
                 msg.payload.should.be.true();
                 done();
@@ -343,7 +359,7 @@ describe('combine logic', () => {
             nNor.receive({topic: '1', payload: false});
         });
         it('should output false on 2:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -351,7 +367,7 @@ describe('combine logic', () => {
             nNor.receive({topic: '2', payload: true});
         });
         it('should output false on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -359,7 +375,7 @@ describe('combine logic', () => {
             nNor.receive({topic: '1', payload: true});
         });
         it('should output false on 2:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -367,7 +383,7 @@ describe('combine logic', () => {
             nNor.receive({topic: '2', payload: false});
         });
         it('should output true on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -375,7 +391,7 @@ describe('combine logic', () => {
             nNor.receive({topic: '1', payload: false});
         });
         it('should output true on 3:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.true();
                 done();
@@ -383,7 +399,7 @@ describe('combine logic', () => {
             nNor.receive({topic: '3', payload: false});
         });
         it('should output false on 3:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2', '3']);
                 msg.payload.should.be.false();
                 done();
@@ -393,7 +409,7 @@ describe('combine logic', () => {
     });
     describe('xor', () => {
         it('should output false deferred on 1:true, 2:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -402,7 +418,7 @@ describe('combine logic', () => {
             nXor.receive({topic: '2', payload: true});
         });
         it('should output true on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -410,7 +426,7 @@ describe('combine logic', () => {
             nXor.receive({topic: '1', payload: false});
         });
         it('should output false on 2:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -418,7 +434,7 @@ describe('combine logic', () => {
             nXor.receive({topic: '2', payload: false});
         });
         it('should output true on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -426,7 +442,7 @@ describe('combine logic', () => {
             nXor.receive({topic: '1', payload: true});
         });
         it('should output false on 2:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -434,7 +450,7 @@ describe('combine logic', () => {
             nXor.receive({topic: '2', payload: true});
         });
         it('should output true on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -445,7 +461,7 @@ describe('combine logic', () => {
     describe('xnor', () => {
         it('should output true deferred on 1:true, 2:true', function (done) {
             this.timeout(3000);
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 setTimeout(done, 2000);
@@ -454,7 +470,7 @@ describe('combine logic', () => {
             nXnor.receive({topic: '2', payload: true});
         });
         it('should output false on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -462,7 +478,7 @@ describe('combine logic', () => {
             nXnor.receive({topic: '1', payload: false});
         });
         it('should output true on 2:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -470,7 +486,7 @@ describe('combine logic', () => {
             nXnor.receive({topic: '2', payload: false});
         });
         it('should output false on 1:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -478,7 +494,7 @@ describe('combine logic', () => {
             nXnor.receive({topic: '1', payload: true});
         });
         it('should output true on 2:true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.true();
                 done();
@@ -486,7 +502,7 @@ describe('combine logic', () => {
             nXnor.receive({topic: '2', payload: true});
         });
         it('should output false on 1:false', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 should(msg.topics.sort()).be.eql(['1', '2']);
                 msg.payload.should.be.false();
                 done();
@@ -494,10 +510,9 @@ describe('combine logic', () => {
             nXnor.receive({topic: '1', payload: false});
         });
     });
-    /*
     describe('and distinct _msgid timeout 1000', () => {
         it('should output true on true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 msg.payload.should.be.true();
                 done();
             });
@@ -505,13 +520,13 @@ describe('combine logic', () => {
         });
         it('should output false after timeout', function (done) {
             this.timeout(5000);
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 msg.payload.should.be.false();
                 done();
             });
         });
         it('should output false on false, true', done => {
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 msg.payload.should.be.false();
                 done();
             });
@@ -522,18 +537,47 @@ describe('combine logic', () => {
         });
         it('should output true after timeout', function (done) {
             this.timeout(3000);
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 msg.payload.should.be.true();
                 done();
             });
         });
         it('should output false after timeout', function (done) {
             this.timeout(3000);
-            nh.once('input', msg => {
+            nhelper.once('input', msg => {
                 msg.payload.should.be.false();
                 done();
             });
         });
     });
-    */
+    describe('and distinct _msgid defer 0 timeout 1000', () => {
+        it('should output true on true', done => {
+            nhelper.once('input', msg => {
+                msg.payload.should.be.true();
+                done();
+            });
+            nAndD0.receive({payload: true});
+        });
+        it('should output false after timeout', function (done) {
+            this.timeout(5000);
+            nhelper.once('input', msg => {
+                msg.payload.should.be.false();
+                done();
+            });
+        });
+        it('should output true on true', done => {
+            nhelper.once('input', msg => {
+                msg.payload.should.be.true();
+                done();
+            });
+            nAndD0.receive({payload: true});
+        });
+        it('should output false on false', done => {
+            nhelper.once('input', msg => {
+                msg.payload.should.be.false();
+                done();
+            });
+            nAndD0.receive({payload: false});
+        });
+    });
 });
