@@ -42,10 +42,7 @@ module.exports = function (RED) {
 
         remove(key) {
             delete this.msgs[key];
-            if (Object.keys(this.msgs).length !== 0) {
-                const msg = this.combine();
-                this.send(msg);
-            }
+            this.send(this.combine());
         }
 
         sendDeferred(msg) {
