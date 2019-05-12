@@ -4,7 +4,9 @@
         defaults: {
             topic: {value: ''},
             name: {value: ''},
-            timeout: {value: 1}
+            invert: {value: false, type: 'bool'},
+            timeout: {value: 1},
+            timeoutType: {value: 'num'}
         },
         inputs: 1,
         outputs: 1,
@@ -13,61 +15,45 @@
         color: '#D8BFD8',
         paletteLabel: 'defer',
         label() {
-            return this.name || ('defer ' + this.defer + ' s');
+            return this.name || ('defer ' + this.timeout + ' s');
         },
         oneditprepare() {
-            /*
-            $('#node-input-tPayload').typedInput({
-                default: 'bool',
-                types: ['bool', 'num', 'string'],
-                typeField: '#node-input-tPayloadType'
+            $('#node-input-timeout').typedInput({
+                default: 'num',
+                types: ['num', 'msg', 'flow', 'global', 'env'],
+                typeField: '#node-input-timeoutType'
             });
-            */
         }
     });
 </script>
 
 <script type="text/x-red" data-template-name="combine-defer">
     <div class="form-row">
-        <label for="node-input-topic"><i class="icon-tasks"></i> Topic</label>
-        <input type="text" id="node-input-topic">
-
-    </div>
-    <!--
-    <div class="form-row">
-        <label for="node-input-condition"><i class="icon-tasks"></i> Payload</label>
-            <select id="node-input-condition">
-                <option value="eq">==</option>
-                <option value="neq">!=</option>
-                <option value="lt">&lt;</option>
-                <option value="gt">&gt;</option>
-                <option value="lte">&lt;=</option>
-                <option value="gte">&gt;=</option>
-                <option value="btwn">is between</option>
-            </select>
-            <input id="node-input-tPayload">
-            <input type="hidden" id="node-input-tPayloadType">
-            <input type="number" id="node-input-payload" style="display:none">
-            <input type="number" id="node-input-lower" style="display:none">
-            <input type="number" id="node-input-upper" style="display:none">
-    </div>
-    -->
-    <div class="form-row">
-        <label for="node-input-timeout"><i class="fa fa-history"></i> Timeout</label>
-        <input type="number" id="node-input-timeout">
-    </div>
-    <div class="form-row">
         <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
         <input type="text" id="node-input-name">
     </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-timeout"><i class="fa fa-history"></i> Timeout</label>
+        <input type="text" id="node-input-timeout">
+        <input type="hidden" id="node-input-timeoutType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-invert"><i class="icon-tasks"></i> Invert</label>
+        <select id="node-input-invert">
+            <option>false</option>
+            <option>true</option>
+        </select>
+    </div>
+
     <style>
         #node-input-condition {
             width: 120px;
         }
-
-
     </style>
-
 </script>
 
 <script type="text/x-red" data-help-name="combine-defer">

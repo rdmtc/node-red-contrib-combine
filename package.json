@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-combine",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "Node-RED Nodes that output combinations of consecutive incoming messages",
   "keywords": [
     "node-red",
@@ -75,7 +75,8 @@
       "html"
     ],
     "rules": {
-      "capitalized-comments": "off"
+      "capitalized-comments": "off",
+      "promise/prefer-await-to-then": "off"
     }
   }
 }
