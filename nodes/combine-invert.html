@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    RED.nodes.registerType('combine-invert', {
+        category: 'combine',
+        defaults: {
+            name: {value: ''}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'invert.png',
+        align: 'left',
+        color: '#D8BFD8',
+        paletteLabel: 'invert',
+        label() {
+            return this.name || 'invert';
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="combine-invert">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="combine-invert">
+    <p>
+        Invert: Receives a boolean input value and sends the inverted representation <br/>
+        All incoming msg.payloads are converted into a boolean value according to the following rules:
+        <ol>	
+            <li>True Boolean values are taken as-is.</li>
+            <li><code>"true"</code> or <code>"false"</code> as strings are converted to their boolean pendants</li>
+            <li>Numeric or string <code>1</code> are interpreted as boolean <code>true</code>.</li>
+            <li>Numeric or string <code>0</code> are interpreted as boolean <code>false</code>.</li>
+            <li>Any other values are ignored. There is no implicit type conversion</li>
+        </ol>
+    </p>
+</script>
