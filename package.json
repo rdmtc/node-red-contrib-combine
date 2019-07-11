@@ -17,7 +17,8 @@
     "max",
     "average",
     "median",
-    "deviation"
+    "deviation",
+    "invert"
   ],
   "main": "none",
   "engines": {
@@ -48,7 +49,8 @@
       "logic": "nodes/combine-logic.js",
       "statistic": "nodes/combine-statistic.js",
       "list": "nodes/combine-list.js",
-      "defer": "nodes/combine-defer.js"
+      "defer": "nodes/combine-defer.js",
+      "invert": "nodes/combine-invert.js"
     }
   },
   "devDependencies": {
